@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>891161283115-ts2akd1630or3amb4odbv48rk95715k0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.891161283115-ts2akd1630or3amb4odbv48rk95715k0</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD9qPKmOdE_mdpHBNVemScSvC7jAyNUgkg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>891161283115</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.reactjs.native.example.meuamigofitness</string>
+	<key>PROJECT_ID</key>
+	<string>meuamigofitness-6f5a0</string>
+	<key>STORAGE_BUCKET</key>
+	<string>meuamigofitness-6f5a0.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:891161283115:ios:0d1fe5e6eb8d5f3238786e</string>
+	<key>DATABASE_URL</key>
+	<string>https://meuamigofitness-6f5a0.firebaseio.com</string>
+</dict>
+</plist>
