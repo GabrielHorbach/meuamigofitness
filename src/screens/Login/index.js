@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import FlashMessage, { showMessage } from 'react-native-flash-message';
 
@@ -8,9 +8,27 @@ import Loader from '../../components/common/Loader';
 
 import api from '../../services/api';
 
+const initialState = {
+  email: '',
+  password: '',
+};
+
 export default function Login(props) {
-  const [state, setState] = useState({});
+  const [state, setState] = useState(initialState);
   const [showLoader, setShowLoader] = useState(false);
+  const inputEl = useRef(null);
+
+  useEffect(() => {
+    async function isUserAlreadyLogged() {
+      const token = await AsyncStorage.getItem('TOKEN');
+
+      if (token) {
+        props.navigation.navigate('Home');
+      }
+    }
+
+    isUserAlreadyLogged();
+  }, [props.navigation]);
 
   async function handleLogin() {
     const { email, password } = state;
@@ -42,6 +60,8 @@ export default function Login(props) {
       });
 
       await AsyncStorage.setItem('TOKEN', result.data.token);
+      setState(initialState);
+
       props.navigation.navigate('Home');
     } catch (err) {
       let message = '';
@@ -73,13 +93,22 @@ export default function Login(props) {
           <Input
             placeholder="Digite seu email"
             autoCapitalize="none"
+            value={state.email}
+            autoFocus={true}
+            keyboardType="email-address"
+            returnKeyType={'next'}
+            onSubmitEditing={() => inputEl.current.focus()}
             onChangeText={text => setState({ ...state, email: text })}
           />
           <Input
             placeholder="Digite sua senha"
             secureTextEntry={true}
             autoCapitalize="none"
+            ref={inputEl}
+            value={state.password}
             onChangeText={text => setState({ ...state, password: text })}
+            returnKeyType={'go'}
+            onSubmitEditing={handleLogin}
           />
           <Button onPress={handleLogin}>
             <ButtonText>Login</ButtonText>
