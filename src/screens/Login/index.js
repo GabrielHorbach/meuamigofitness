@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import FlashMessage, { showMessage } from 'react-native-flash-message';
 
@@ -20,9 +21,9 @@ export default function Login(props) {
 
   useEffect(() => {
     async function isUserAlreadyLogged() {
-      const token = await AsyncStorage.getItem('TOKEN');
+      const userData = JSON.parse(await AsyncStorage.getItem('USER_DATA'));
 
-      if (token) {
+      if (userData.token) {
         props.navigation.navigate('Home');
       }
     }
@@ -31,6 +32,7 @@ export default function Login(props) {
   }, [props.navigation]);
 
   async function handleLogin() {
+    Keyboard.dismiss();
     const { email, password } = state;
 
     if (!email) {
@@ -59,7 +61,13 @@ export default function Login(props) {
         password: state.password,
       });
 
-      await AsyncStorage.setItem('TOKEN', result.data.token);
+      await AsyncStorage.setItem(
+        'USER_DATA',
+        JSON.stringify({
+          user: result.data.user,
+          token: result.data.token,
+        }),
+      );
       setState(initialState);
 
       props.navigation.navigate('Home');

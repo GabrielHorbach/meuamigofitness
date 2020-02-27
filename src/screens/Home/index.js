@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -9,12 +10,31 @@ import { GreetingText, UserWrapper } from './styles';
 import MacrosCounter from '../../components/MacrosCounter';
 import LoginTrack from '../../components/LoginTrack';
 
+import UserService from '../../services/UserService';
+
 export default function Home({ navigation }) {
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    async function fetchUserData() {
+      const userData = JSON.parse(await AsyncStorage.getItem('USER_DATA'));
+
+      const user = await UserService.getUserData(
+        userData.user._id,
+        userData.token,
+      );
+
+      setData(user);
+    }
+
+    fetchUserData();
+  }, []);
+
   return (
     <SafeAreaContainer mode="light">
       <Container mode="light">
         <UserWrapper>
-          <GreetingText>Olá, Gabriel</GreetingText>
+          <GreetingText>Olá, {data.name}</GreetingText>
           <Icon
             name="user-alt"
             size={20}
@@ -25,7 +45,7 @@ export default function Home({ navigation }) {
           />
         </UserWrapper>
         <Separator />
-        <MacrosCounter />
+        <MacrosCounter data={data} />
         <LoginTrack />
       </Container>
     </SafeAreaContainer>
