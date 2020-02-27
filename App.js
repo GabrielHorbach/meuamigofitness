@@ -8,6 +8,7 @@ import Login from './src/screens/Login';
 import Home from './src/screens/Home';
 import Diary from './src/screens/Diary';
 import Profile from './src/screens/Profile';
+import CustomizeMacros from './src/screens/CustomizeMacros';
 
 const tabBarOptions = {
   activeTintColor: '#fff',
@@ -62,6 +63,12 @@ const AppNavigator = createStackNavigator({
     screen: Profile,
     navigationOptions: {
       title: 'Conta',
+    },
+  },
+  CustomizeMacros: {
+    screen: CustomizeMacros,
+    navigationOptions: {
+      title: 'Personalizar Macronutrientes',
     },
   },
 });

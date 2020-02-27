@@ -13,7 +13,9 @@ export default function Profile(props) {
     <Container>
       <SectionHeader>Configurações</SectionHeader>
       <Row>
-        <Option>Personalizar Macronutrientes</Option>
+        <Option onPress={() => props.navigation.navigate('CustomizeMacros')}>
+          Personalizar Macronutrientes
+        </Option>
       </Row>
       <SectionHeader>Conta</SectionHeader>
       <Row>
