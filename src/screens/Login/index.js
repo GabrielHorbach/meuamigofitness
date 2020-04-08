@@ -119,7 +119,7 @@ export default function Login(props) {
             onSubmitEditing={handleLogin}
           />
           <Button onPress={handleLogin}>
-            <ButtonText>Login</ButtonText>
+            <ButtonText>Entrar</ButtonText>
           </Button>
 
           <Loader status={showLoader} />
