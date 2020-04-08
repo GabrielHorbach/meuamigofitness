@@ -23,7 +23,7 @@ export default function Login(props) {
     async function isUserAlreadyLogged() {
       const userData = JSON.parse(await AsyncStorage.getItem('USER_DATA'));
 
-      if (userData.token) {
+      if (userData && userData.token) {
         props.navigation.navigate('Home');
       }
     }
