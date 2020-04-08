@@ -5,7 +5,7 @@ import { Container, SectionHeader, Row, Option } from './styles';
 
 export default function Profile(props) {
   async function handlePress() {
-    await AsyncStorage.removeItem('TOKEN');
+    await AsyncStorage.removeItem('USER_DATA');
     props.navigation.navigate('Login');
   }
 
