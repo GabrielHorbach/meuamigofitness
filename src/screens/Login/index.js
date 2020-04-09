@@ -7,7 +7,7 @@ import { SafeAreaContainer } from '../../../globalStyled';
 import { Container, Input, Button, ButtonText, Title } from './styles';
 import Loader from '../../components/common/Loader';
 
-import api from '../../services/api';
+import { noAuthApi } from '../../services/api';
 
 const initialState = {
   email: '',
@@ -56,7 +56,7 @@ export default function Login(props) {
     setShowLoader(true);
 
     try {
-      const result = await api.post('/auth/authenticate', {
+      const result = await noAuthApi.post('/auth/authenticate', {
         email: state.email,
         password: state.password,
       });

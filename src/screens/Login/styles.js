@@ -1,10 +1,8 @@
 import styled from 'styled-components';
-import { Dimensions, KeyboardAvoidingView } from 'react-native';
-
-const width = Dimensions.get('window').width;
+import { responsiveSize } from '../../utils/dimensions';
 
 export const Title = styled.Text`
-  font-size: ${width / 12};
+  font-size: ${responsiveSize(12)};
   font-weight: bold;
   color: #50d890;
   margin-bottom: 50;

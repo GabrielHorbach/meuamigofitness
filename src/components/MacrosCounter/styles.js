@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import { responsiveSize } from '../../utils/dimensions';
 
 export const Title = styled.Text`
-  font-size: 16px;
-  margin-bottom: 25px;
+  font-size: ${`${responsiveSize(24)}px`};
+  margin-bottom: ${`${responsiveSize(18)}px`};
   color: #fff;
 `;
 
