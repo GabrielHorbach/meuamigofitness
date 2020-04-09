@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { responsiveSize } from '../../utils/dimensions';
 
 export const Container = styled.View`
   height: auto;
@@ -6,8 +7,8 @@ export const Container = styled.View`
 `;
 
 export const NutrientCircleView = styled.View`
-  width: 70;
-  height: 70;
+  width: ${responsiveSize(6)};
+  height: ${responsiveSize(6)};
   border-radius: 35;
   border: 2px solid #fff;
   justify-content: center;
@@ -15,18 +16,18 @@ export const NutrientCircleView = styled.View`
 `;
 
 export const QuantityText = styled.Text`
-  font-size: 16px;
+  font-size: ${`${responsiveSize(24)}px`};
   font-weight: 600;
   color: #fff;
 `;
 
 export const UnitText = styled.Text`
-  font-size: 12px;
+  font-size: ${`${responsiveSize(30)}px`};
   color: #fff;
 `;
 
 export const TitleText = styled.Text`
-  font-size: 12px;
+  font-size: ${`${responsiveSize(30)}px`};
   color: #fff;
   margin-top: 5px;
 `;

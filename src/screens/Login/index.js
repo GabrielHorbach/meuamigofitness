@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import FlashMessage, { showMessage } from 'react-native-flash-message';
 
@@ -6,13 +7,32 @@ import { SafeAreaContainer } from '../../../globalStyled';
 import { Container, Input, Button, ButtonText, Title } from './styles';
 import Loader from '../../components/common/Loader';
 
-import api from '../../services/api';
+import { noAuthApi } from '../../services/api';
+
+const initialState = {
+  email: '',
+  password: '',
+};
 
 export default function Login(props) {
-  const [state, setState] = useState({});
+  const [state, setState] = useState(initialState);
   const [showLoader, setShowLoader] = useState(false);
+  const inputEl = useRef(null);
+
+  useEffect(() => {
+    async function isUserAlreadyLogged() {
+      const userData = JSON.parse(await AsyncStorage.getItem('USER_DATA'));
+
+      if (userData && userData.token) {
+        props.navigation.navigate('Home');
+      }
+    }
+
+    isUserAlreadyLogged();
+  }, [props.navigation]);
 
   async function handleLogin() {
+    Keyboard.dismiss();
     const { email, password } = state;
 
     if (!email) {
@@ -36,12 +56,20 @@ export default function Login(props) {
     setShowLoader(true);
 
     try {
-      const result = await api.post('/auth/authenticate', {
+      const result = await noAuthApi.post('/auth/authenticate', {
         email: state.email,
         password: state.password,
       });
 
-      await AsyncStorage.setItem('TOKEN', result.data.token);
+      await AsyncStorage.setItem(
+        'USER_DATA',
+        JSON.stringify({
+          user: result.data.user,
+          token: result.data.token,
+        }),
+      );
+      setState(initialState);
+
       props.navigation.navigate('Home');
     } catch (err) {
       let message = '';
@@ -73,16 +101,25 @@ export default function Login(props) {
           <Input
             placeholder="Digite seu email"
             autoCapitalize="none"
+            value={state.email}
+            autoFocus={true}
+            keyboardType="email-address"
+            returnKeyType={'next'}
+            onSubmitEditing={() => inputEl.current.focus()}
             onChangeText={text => setState({ ...state, email: text })}
           />
           <Input
             placeholder="Digite sua senha"
             secureTextEntry={true}
             autoCapitalize="none"
+            ref={inputEl}
+            value={state.password}
             onChangeText={text => setState({ ...state, password: text })}
+            returnKeyType={'go'}
+            onSubmitEditing={handleLogin}
           />
           <Button onPress={handleLogin}>
-            <ButtonText>Login</ButtonText>
+            <ButtonText>Entrar</ButtonText>
           </Button>
 
           <Loader status={showLoader} />

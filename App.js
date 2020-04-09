@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -8,19 +9,18 @@ import Login from './src/screens/Login';
 import Home from './src/screens/Home';
 import Diary from './src/screens/Diary';
 import Profile from './src/screens/Profile';
+import CustomizeMacros from './src/screens/CustomizeMacros';
+
+import { responsiveSize } from './src/utils/dimensions';
 
 const tabBarOptions = {
-  activeTintColor: '#fff',
-  inactiveTintColor: '#f5f5f5',
-  labelStyle: {
-    fontSize: 13,
-    fontWeight: '500',
-  },
   style: {
     backgroundColor: '#50d890',
-    height: 65,
-    paddingTop: 15,
+    height: responsiveSize(4),
+    paddingTop: responsiveSize(19),
+    paddingBottom: responsiveSize(19),
   },
+  showLabel: false,
 };
 
 const HomeTabs = createBottomTabNavigator(
@@ -28,15 +28,17 @@ const HomeTabs = createBottomTabNavigator(
     Home: {
       screen: Home,
       navigationOptions: {
-        title: 'Home',
-        tabBarIcon: () => <Icon name="home" size={17} color="#fff" />,
+        tabBarIcon: () => (
+          <Icon name="home" size={responsiveSize(15)} color="#fff" />
+        ),
       },
     },
     Diary: {
       screen: Diary,
       navigationOptions: {
-        title: 'Diário',
-        tabBarIcon: () => <Icon name="clipboard" size={17} color="#fff" />,
+        tabBarIcon: () => (
+          <Icon name="clipboard" size={responsiveSize(15)} color="#fff" />
+        ),
       },
     },
   },
@@ -45,25 +47,48 @@ const HomeTabs = createBottomTabNavigator(
   },
 );
 
-const AppNavigator = createStackNavigator({
-  Login: {
-    screen: Login,
-    navigationOptions: {
-      headerShown: false,
+const AppNavigator = createStackNavigator(
+  {
+    Login: {
+      screen: Login,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Home: {
+      screen: HomeTabs,
+      navigationOptions: {
+        headerShown: false,
+        title: 'Início',
+      },
+    },
+    Profile: {
+      screen: Profile,
+      navigationOptions: {
+        title: 'Perfil',
+      },
+    },
+    CustomizeMacros: {
+      screen: CustomizeMacros,
+      navigationOptions: {
+        title: 'Macronutrientes',
+      },
     },
   },
-  Home: {
-    screen: HomeTabs,
-    navigationOptions: {
-      headerShown: false,
+  {
+    defaultNavigationOptions: {
+      headerTitleStyle: {
+        fontSize: responsiveSize(22),
+        color: '#000',
+      },
+      headerBackTitleStyle: {
+        fontSize: responsiveSize(22),
+        color: '#50d890',
+        fontWeight: 'bold',
+      },
+      headerTintColor: '#50d890',
     },
   },
-  Profile: {
-    screen: Profile,
-    navigationOptions: {
-      title: 'Conta',
-    },
-  },
-});
+);
 
 export default createAppContainer(AppNavigator);

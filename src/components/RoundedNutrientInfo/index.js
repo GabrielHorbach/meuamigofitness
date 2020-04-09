@@ -8,14 +8,14 @@ import {
   NutrientCircleView,
 } from './styles';
 
-export default function RoundedNutrientInfo({ data }) {
+export default function RoundedNutrientInfo({ name, value, unity = 'g' }) {
   return (
     <Container>
       <NutrientCircleView>
-        <QuantityText>{data.quantity}</QuantityText>
-        <UnitText>{data.unit}</UnitText>
+        <QuantityText>{value}</QuantityText>
+        <UnitText>{unity}</UnitText>
       </NutrientCircleView>
-      <TitleText>{data.name}</TitleText>
+      <TitleText>{name}</TitleText>
     </Container>
   );
 }

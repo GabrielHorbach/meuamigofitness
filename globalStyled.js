@@ -12,6 +12,7 @@ export const Card = styled.View`
   padding: 15px;
   margin-top: ${props => props.marginTop || 0};
   margin-bottom: ${props => props.marginBottom || 0};
+  ${props => props.autoSize && 'alignSelf: flex-start'}
 `;
 
 export const Container = styled.View`

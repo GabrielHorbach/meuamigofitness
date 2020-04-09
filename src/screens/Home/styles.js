@@ -1,15 +1,15 @@
 import styled from 'styled-components';
+import { responsiveSize } from '../../utils/dimensions';
 
 export const GreetingText = styled.Text`
-  font-size: 24px;
+  font-size: ${responsiveSize(16)};
   font-weight: 500;
   color: #50d890;
-  margin-bottom: 30px;
   height: 30;
 `;
 
 export const UserWrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  height: 30;
+  height: ${responsiveSize(14)};
 `;
